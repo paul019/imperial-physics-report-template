@@ -1,0 +1,174 @@
+\documentclass[english,twocolumn]{scrartcl}
+\usepackage[utf8]{inputenc}  % Ensure UTF-8 encoding
+\usepackage[T1]{fontenc}  % Use T1 font encoding
+\usepackage[english]{babel}  % Set document language to English
+\usepackage{blindtext}  % Generate placeholder text
+\usepackage{pdfpages}  % Include external PDFs
+\usepackage{float}  % Control floating elements
+
+% Set page margins to 2 cm
+\usepackage[a4paper, top=3cm, bottom=3cm, left=2cm, right=2cm]{geometry}
+
+% Bibliography
+\usepackage[autocite=superscript, sorting=none]{biblatex} % Import biblatex package
+\addbibresource{bibliography.bib} % Import the bibliography file
+
+% Mathematics and Units
+\usepackage{amsmath}  % Enhanced mathematical formulas
+\usepackage{amssymb}  % Additional mathematical symbols
+\usepackage[locale=US, separate-uncertainty]{siunitx}  % Configure SI units
+\sisetup{exponent-product = \cdot, output-product = \cdot}
+\usepackage{physics}  % Simplify equation formatting
+\AtBeginDocument{\RenewCommandCopy\qty\SI}  % Ensure compatibility with siunitx
+\usepackage[version=4]{mhchem}  % Chemical formulas and equations
+
+% Graphics
+\usepackage{graphicx}  % Include images with \includegraphics{path/to/file}
+
+% Formatting
+\usepackage{booktabs}  % Improve table formatting
+\usepackage{multicol}  % Multiple column layout
+\usepackage{csquotes}  % Smart quotation marks with \enquote
+\usepackage[format=plain,labelfont=bf]{caption}  % Customize captions for figures and tables
+\usepackage{subcaption}  % Subfigures and subtables
+\usepackage[shortlabels]{enumitem}  % Customize lists
+\setlist{itemsep=0pt}  % Reduce spacing between list items
+\usepackage[ddmmyyyy]{datetime}  % Date format configuration
+\renewcommand{\dateseparator}{.}  % Change date separator to a dot
+\usepackage{fancyhdr}  % Customize headers and footers
+\renewcommand*{\arraystretch}{1.5}  % Increase row spacing in tables
+\usepackage{tabularx}
+\usepackage{multirow}  % Merge table rows
+\usepackage{lipsum} % Generate placeholder text
+\usepackage[symbol,perpage,stable]{footmisc}  % Custom footnote symbols (because numbers are already used for citations)
+\interfootnotelinepenalty=10000  % Prevent footnotes from breaking across pages
+\usepackage{courier}  % Use Courier font for code snippets
+\usepackage[hyphenate]{truncate}    % Truncate words using hyphens
+% \usepackage{minted} % Syntax highlighting for code snippets
+\usepackage{algorithm}  % Algorithm environment
+\usepackage{algpseudocode}  % Package for pseudo-code
+\usepackage[normalem]{ulem} % Use \sout{...} command for strike outs
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% TODO: DEFINE VARIABLES BELOW                   %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Project Information
+\newcommand{\projectTitle}{Project Title}
+\newcommand{\projectDeadline}{6th May 2025}
+
+% Authors
+\newcommand{\studentOneName}{Max Mustermann}
+\newcommand{\studentOneCID}{12345678}
+\newcommand{\studentTwoName}{Erika Musterfrau}      % comment this line to remove the second author
+\newcommand{\studentTwoCID}{23456789}
+\newcommand{\studentThreeName}{Hans Mustermensch}   % comment this line to remove the third author
+\newcommand{\studentThreeCID}{34567890}
+\newcommand{\authorsShort}{M. Mustermann, E. Musterfrau, H. Mustermensch}
+
+% Project Supervisors
+\newcommand{\projectSupervisors}{John Doe\\Jane Smith}
+\newcommand{\projectAssessor}{Dr. Richard Roe}
+
+% Page Style Configuration
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\truncate{25em}{\rightmark}}
+\fancyhead[R]{\authorsShort}
+\fancyfoot[C]{\thepage}  % Center footer: page number
+\fancypagestyle{protokoll}{
+    \lhead{}
+    \fancyhead{}
+    \renewcommand{\headrulewidth}{0pt}  % Remove header rule
+    \renewcommand{\footruleskip}{139pt}
+    \fancyfoot[C]{Page \thepage}  % Center footer: page number
+}
+
+% Hyperlinks and PDF Features
+\usepackage[hidelinks]{hyperref}  % Enable links without visible borders
+\hypersetup{pdfauthor={P}, pdftitle={T}}  % Set PDF metadata
+
+% Miscellaneous
+\usepackage[textsize=tiny]{todonotes}  % Add to-do notes
+\setlength{\marginparwidth}{1.5cm}
+
+\begin{document}
+
+% Titlepage
+\begin{titlepage}
+    \centering
+    \vspace*{2.5cm}
+    {\Huge \textbf{\projectTitle}}\\[4cm]
+
+    {\Large \textbf{\studentOneName}}\\
+    CID: \studentOneCID\\[1cm]
+
+    \ifdefined\studentTwoName
+        {\Large \textbf{\studentTwoName}}\\
+        CID: \studentTwoCID\\[1cm]
+    \fi
+
+    \ifdefined\studentThreeName
+        {\Large \textbf{\studentThreeName}}\\
+        CID: \studentThreeCID\\[1cm]
+    \fi
+
+    \vspace{1cm}
+
+    \textbf{Project Supervisors:}\\\projectSupervisors\\[1cm]
+
+    \textbf{Project Assessor:}\\\projectAssessor\\[1cm]
+    \vfill
+    \textbf{Imperial College London}\\
+    \projectDeadline
+\end{titlepage}
+
+% Abstract
+\onecolumn
+\pagenumbering{roman}
+\setcounter{page}{2}
+\input{sections/0_abstract.tex}
+\newpage
+
+% Contents
+\onecolumn
+\tableofcontents
+\newpage
+
+% List of todo notes
+% \onecolumn
+% \listoftodos % List of todo notes (remove for final version)
+% \newpage
+
+\input{sections/0_abbreviations.tex}
+\clearpage
+
+% Main part
+\twocolumn
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\input{sections/1_introduction.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% TODO: ADD MORE SECTIONS HERE                   %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+
+% Bibliography
+\onecolumn
+\pagenumbering{roman}
+\setcounter{page}{4}
+\input{sections/Z_bibliography.tex}
+\newpage
+
+% Appendix
+\onecolumn
+\appendix
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% TODO: ADD APPENDICES HERE                      %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
